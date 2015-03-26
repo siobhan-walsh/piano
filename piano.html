@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>piano</title>
+</head>
+<style>
+#keysw{
+	width:100%;
+	height:350px;
+	background-color:#8C5703;
+	position:absolute;
+	bottom:0px;
+}
+
+.but{
+	width:12%;
+	margin:0px;
+	height:100%;
+	background:#FFFFFF;
+}
+#keysb{
+	width:90%;
+	height:350px;
+	position:absolute;
+	bottom:200px;
+}
+.but2{
+	width:10%;
+	margin:20px;
+	height:100%;
+	background:#000;
+}
+.but3{
+	float:right;
+	width:10%;
+	margin-right:40px;
+	height:100%;
+	background:#000;
+}
+</style>
+<body>
+<div id="play">
+
+	<input type="button" id="pb"value='play'>
+
+</div>
+<div id="keysw">
+ <input class="but" id='1' type='button' value='1'/>
+ <input class="but" id='2' type='button' value='2'/>
+ <input class="but" id='3' type='button' value='3'/>
+ <input class="but" id='4' type='button' value='4'/>
+ <input class="but" id='5' type='button' value='5'/>
+ <input class="but" id='6' type='button' value='6'/>
+ <input class="but" id='7' type='button' value='7'/>
+ <input class="but" id='8' type='button' value='8'/>
+
+</div>
+<div id="keysb">
+ <input class="but2" id='9' type='button' value='9'/>
+ <input class="but2" id='10' type='button' value='10'/>
+ <input class="but3" id='11' type='button' value='11'/>
+ <input class="but3" id='12' type='button' value='12'/>
+ <input class="but3" id='13' type='button' value='12'/>
+</div>
+
+<audio id="c">
+	<source src="sounds/c.wav" type="audio/wav" data-note="0">
+</audio>
+<audio id="cs">
+	<source src="sounds/cs.wav" type="audio/wav" data-note="1">
+</audio>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+		
+		var arr = [];
+		var num = 1;
+		
+		$("#1").click( 
+			function(){
+				$("#c")[0].play();
+				arr.push("#c");
+				console.log("arr", arr);
+			}
+		);
+		
+		
+		$("#9").click( 
+			function(){
+				$("#cs")[0].play();
+				arr.push("#cs");
+				console.log("arr", arr);
+			}
+ 		);
+		
+		/*$("#pb").click( 
+			function(){
+				var i;
+				for(i = 0; i < arr.length;i++){;
+				$(arr[i])[0].play();
+				console.log("arr", arr);
+				
+				} 
+			}
+		);*/
+	
+		
+		
+		$("#pb").click(function (event) {
+		   
+			  
+			  
+			  for(i = 0; i < arr.length;i++){;
+				$(arr[i])[0].play();
+				console.log("arr", arr);
+				
+				if(!playing) {
+			  var element = $(arr[1]);
+			  var elementID = event.target.id;
+			  var oggVar = (elementID +".ogg");   
+			  var audioElement = $('#c')[0];
+			  var audioElement = $('#cs')[0];
+			  audioElement.setAttribute('src', oggVar); 
+			  audioElement.play();
+			  console.log("lhfaskldjf");
+			  
+			  var playing = false;
+
+		$(arr[0]).on('playing', function() {
+		   playing = true;
+		   // disable button/link
+		});
+		$(arr[0]).on('ended', function() {
+		   playing = false;
+		   // enable button/link
+		});
+				
+				} 
+		   }
+
+});
+		//function() {
+			
+					
+				
+		//}
+		//$("#pb").click);
+				
+		
+		
+		
+		
+  });
+
+</script>
+</body>
+</html>
