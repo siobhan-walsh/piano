@@ -77,6 +77,7 @@ $(document).ready(function(){
 		var arr = [];
 		var num = 1;
         var notes = document.querySelectorAll('.pnote');
+        var thesource = document.getElementById('source');
 
         for(var i = 0; i < notes.length; i++){
            
@@ -99,7 +100,7 @@ $(document).ready(function(){
                          
 
                             document.getElementById('source').src = "sounds/" + thething.id + ".wav";
-
+                            arr.push(thething.id);
                          
                         };
 
@@ -110,7 +111,7 @@ $(document).ready(function(){
                             $('#note')[0].play();
                         };
 
-                       
+                        console.log('arr is', arr);
 
                     }
 
@@ -133,6 +134,8 @@ $(document).ready(function(){
 				console.log("arr", arr);
 			}
  		);
+        
+       
 		
 		$("#pb").click( 
 			function(){
@@ -145,41 +148,109 @@ $(document).ready(function(){
 			}
 		);
 	
-		
+		 
 		
 		$("#pb").click(function (event) {
 		   
 			  
 			  
-			  for(i = 0; i < arr.length;i++){;
-				$(arr[i])[0].play();
+			  for(i = 0; i < arr.length;i++){
+                  
+                  
+               // thesource.src = "sounds/" + arr[i] + ".wav";
+                
+				//$('#note')[0].play();
 				console.log("arr", arr);
-				
-				if(!playing) {
-			  var element = $(arr[1]);
-			  var elementID = event.target.id;
-			  var oggVar = (elementID +".ogg");   
-			  var audioElement = $('#c')[0];
-			  var audioElement = $('#cs')[0];
-			  audioElement.setAttribute('src', oggVar); 
-			  audioElement.play();
-			  console.log("lhfaskldjf");
-			  
-			  var playing = false;
+                  
+                    
+                var audioSub = $('#note').get(0); 
+                var playmode=audioSub.paused;  
+                  
+                     
+                    thesource.src = "sounds/" + arr[i] + ".wav";
+             
+                    audioSub.play();
+                  
+                  $('#note').on('playing', function() {
+                       playing = true;
+                      audioSub.play();
+                       // disable button/link
+                    });
+                    $('#note').on('ended', function() {
+                       playing = false;
+                       // enable button/link
+                    });
+               
+               
+                  
+                  
+              }
+        });
+		*/		
+    
+    $("#pb").click(function (event) {
+        var x = 0;
 
-		$(arr[0]).on('playing', function() {
-		   playing = true;
-		   // disable button/link
-		});
-		$(arr[0]).on('ended', function() {
-		   playing = false;
-		   // enable button/link
-		});
+        var loopArray = function(arrr) {
+            // call itself
+            customAlert(arrr[x],function(){
+                // set x to next item
+                x++;
+                // any more items in array?
+                if(x < arrr.length) {
+                    loopArray(arrr);   
+                }
+            }); 
+        }
+
+        // start 'loop'
+        loopArray(arr);
+
+        function customAlert(msg, callback) {
+            // fancy code to show your message
+            
+                
+			
+            console.log(msg);
+            // do callback when ready
+            
+            function doit(){
+                thesource.src = "sounds/" + arr[x] + ".wav";
+                $('#note').load();
+                $('#note')[0].play()
+                
+            };
+            callback(doit());
+        }
+    });
+    
+                  /*
+				if(!playing) {
+                  var element = $(arr[1]);
+                  var elementID = event.target.id;
+                  var oggVar = (elementID +".ogg");   
+                  var audioElement = $('#c')[0];
+                  var audioElement = $('#cs')[0];
+                  audioElement.setAttribute('src', oggVar); 
+                  audioElement.play();
+                  console.log("lhfaskldjf");
+
+                  var playing = false;
+
+                $('#note').on('playing', function() {
+                   playing = true;
+                   // disable button/link
+                });
+                $('#note').on('ended', function() {
+                   playing = false;
+                   // enable button/link
+                });
 				
 				} 
 		   }
 
 });
+*/
 		//function() {
 			
 					
@@ -189,7 +260,7 @@ $(document).ready(function(){
 				
 		
 		
-		*/
+		
 		
   });
 
