@@ -43,40 +43,80 @@
 <div id="play">
 
 	<input type="button" id="pb"value='play'>
-
+    
 </div>
 <div id="keysw">
- <input class="but" id='1' type='button' value='1'/>
- <input class="but" id='2' type='button' value='2'/>
- <input class="but" id='3' type='button' value='3'/>
- <input class="but" id='4' type='button' value='4'/>
- <input class="but" id='5' type='button' value='5'/>
- <input class="but" id='6' type='button' value='6'/>
- <input class="but" id='7' type='button' value='7'/>
- <input class="but" id='8' type='button' value='8'/>
+ <input class="but pnote" id='c' type='button' value='c'/>
+ <input class="but pnote" id='d' type='button' value='d'/>
+ <input class="but pnote" id='e' type='button' value='e'/>
+ <input class="but pnote" id='f' type='button' value='f'/>
+ <input class="but pnote" id='g' type='button' value='g'/>
+ <input class="but pnote" id='a' type='button' value='a'/>
+ <input class="but pnote" id='b' type='button' value='b'/>
+ <!--<input class="but" id='8' type='button' value='8'/>-->
 
 </div>
 <div id="keysb">
- <input class="but2" id='9' type='button' value='9'/>
- <input class="but2" id='10' type='button' value='10'/>
- <input class="but3" id='11' type='button' value='11'/>
- <input class="but3" id='12' type='button' value='12'/>
- <input class="but3" id='13' type='button' value='12'/>
+ <input class="but2 pnote" id='cs' type='button' value='c#'/>
+ <input class="but2 pnote" id='ds' type='button' value='d#'/>
+ <input class="but3 pnote" id='as' type='button' value='a#'/>
+ <input class="but3 pnote" id='gs' type='button' value='g#'/>
+ <input class="but3 pnote" id='fs' type='button' value='f#'/>
 </div>
 
-<audio id="c">
-	<source src="sounds/c.wav" type="audio/wav" data-note="0">
-</audio>
-<audio id="cs">
-	<source src="sounds/cs.wav" type="audio/wav" data-note="1">
-</audio>
+    
+    <audio id="note">
+	   <source id= 'source' src="sounds/f.wav" type="audio/wav" data-note="0">
+    </audio>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
 		
 		var arr = [];
 		var num = 1;
-		
+        var notes = document.querySelectorAll('.pnote');
+
+        for(var i = 0; i < notes.length; i++){
+           
+            notes[i].addEventListener('click', blindClick(i));
+                
+           
+        }
+
+                  function blindClick(i){
+    
+                    return function(){
+                        var thething = this;
+                
+                        $("#note")[0].pause();
+
+                       $.when(changeit()).then(playit());
+
+                        function changeit(){
+
+                         
+
+                            document.getElementById('source').src = "sounds/" + thething.id + ".wav";
+
+                         
+                        };
+
+                        function playit(){
+                         
+
+                            $('#note').load();
+                            $('#note')[0].play();
+                        };
+
+                       
+
+                    }
+
+            }
+   /* 
+   
 		$("#1").click( 
 			function(){
 				$("#c")[0].play();
@@ -94,7 +134,7 @@ $(document).ready(function(){
 			}
  		);
 		
-		/*$("#pb").click( 
+		$("#pb").click( 
 			function(){
 				var i;
 				for(i = 0; i < arr.length;i++){;
@@ -103,7 +143,7 @@ $(document).ready(function(){
 				
 				} 
 			}
-		);*/
+		);
 	
 		
 		
@@ -149,7 +189,7 @@ $(document).ready(function(){
 				
 		
 		
-		
+		*/
 		
   });
 
